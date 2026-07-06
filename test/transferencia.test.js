@@ -14,12 +14,12 @@ describe('Transferencias', () => {
 
         it('Deve retornar sucesso com 201 quando o valor da transferência for igual ou acima de R$ 10,00', async () => {
             const bodyTransferencia = { ...postTransferencia}
-            bodyTransferencia.valor = 15
+
             const resposta = await request(process.env.BASE_URL)
                 .post('/transferencias')
                 .set('Content-Type', 'application/json')
                 .set('Authorization', `Bearer ${token}`)
-                .send(bodyTransferencia)               
+                .send(bodyTransferencia)       
 
             expect(resposta.status).to.equal(201)
         });
@@ -27,8 +27,7 @@ describe('Transferencias', () => {
 
         it('Deve retornar falha com 422 quando o valor da transferência for abaixo de R$ 10,00', async () => {
             const bodyTransferencia = { ...postTransferencia}
-            bodyTransferencia.valor = 7;
-           
+            bodyTransferencia.valor = 9;
             const resposta = await request(process.env.BASE_URL)
                 .post('/transferencias')
                 .set('Content-Type', 'application/json')
